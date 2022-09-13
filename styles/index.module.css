@@ -1,0 +1,20 @@
+.tableBorder {
+  @apply w-[50%] m-auto;
+
+  & th,
+  & tr td {
+    @apply border-[1px] px-1 py-2;
+  }
+}
+
+.ETspan {
+  @apply text-center font-bold;
+}
+
+.warning {
+  @apply bg-yellow-200;
+}
+
+.danger {
+  @apply bg-red-200;
+}
