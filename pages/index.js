@@ -63,14 +63,13 @@ const Home = () => {
   const [ET, setET] = useState(new EorzeaTime().toString())
   useEffect(() => {
     setTimeout(() => {
-      // setET(new EorzeaTime().toString())
-      // setET(addTime(ET, 60))
+      setET(new EorzeaTime().toString())
     }, 3000)
   })
   return (
     <Fragment>
-      {/*<p className={styles.ETspan}>Eorzea Time: {ET && ET.slice(0, -3)}</p>*/}
-      <p className={styles.ETspan}>Eorzea Time: {ET && ET}</p>
+      <p className={styles.ETspan}>Eorzea Time: {ET && ET.slice(0, -3)}</p>
+      {/*<p className={styles.ETspan}>Eorzea Time: {ET && ET}</p>*/}
       <table className={styles.tableBorder}>
         <thead>
           <tr>
