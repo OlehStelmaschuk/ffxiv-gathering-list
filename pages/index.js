@@ -43,19 +43,34 @@ const Data = ({ item, ET }) => {
           <td>{item.EndTime.slice(0, -3)}</td>
         </tr>
       )
+    } else {
+      !show && setShow(true)
     }
   })
 }
+
+const addTime = (time, minsToAdd) => {
+  function D(J) {
+    return (J < 10 ? '0' : '') + J
+  }
+  let piece = time.split(':')
+  let mins = piece[0] * 60 + +piece[1] + +minsToAdd
+
+  return D(((mins % (24 * 60)) / 60) | 0) + ':' + D(mins % 60)
+}
+
 const Home = () => {
   const [ET, setET] = useState(new EorzeaTime().toString())
   useEffect(() => {
     setTimeout(() => {
-      setET(new EorzeaTime().toString())
+      // setET(new EorzeaTime().toString())
+      // setET(addTime(ET, 60))
     }, 3000)
   })
   return (
     <Fragment>
-      <p className={styles.ETspan}>Eorzea Time: {ET && ET.slice(0, -3)}</p>
+      {/*<p className={styles.ETspan}>Eorzea Time: {ET && ET.slice(0, -3)}</p>*/}
+      <p className={styles.ETspan}>Eorzea Time: {ET && ET}</p>
       <table className={styles.tableBorder}>
         <thead>
           <tr>
