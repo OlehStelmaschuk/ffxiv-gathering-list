@@ -8,6 +8,12 @@ const MS_PER_MINUTE = 60000
 
 const Data = ({ item, ET }) => {
   return item.map((item) => {
+    const [show, setShow] = useState(true)
+
+    const onClick = () => {
+      setShow(false)
+    }
+
     const ETStringCompare = Date.parse(`01/01/2011 ${ET}`)
     const StartTime = Date.parse(`01/01/2011 ${item.StartTime}`)
     const EndTime = Date.parse(`01/01/2011 ${item.EndTime}`)
@@ -20,8 +26,15 @@ const Data = ({ item, ET }) => {
         <tr
           key={uuidv4()}
           className={
-            isDanger ? styles.danger : isWarning ? styles.warning : null
+            !show
+              ? styles.gray
+              : isDanger
+              ? styles.danger
+              : isWarning
+              ? styles.warning
+              : null
           }
+          onClick={() => onClick()}
         >
           <td>{item.Location}</td>
           <td>{item.Point}</td>
