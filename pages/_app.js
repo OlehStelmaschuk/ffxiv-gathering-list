@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Fragment>
       <Head>
-        <title>Dark Matter Mining App</title>
+        <title>Mining Helper for FFXIV</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Component {...pageProps} />
