@@ -11,6 +11,13 @@
   @apply text-center text-xl font-bold uppercase sticky;
 }
 
+.checkbox{
+  @apply text-center text-xl  sticky;
+  & label{
+    @apply mx-2;
+  }
+}
+
 .warning {
   @apply bg-yellow-200;
 }

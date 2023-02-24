@@ -16,7 +16,7 @@ const MS_PER_MINUTE = 60000
 //   return D(((mins % (24 * 60)) / 60) | 0) + ':' + D(mins % 60)
 // }
 
-const Data = ({ item, ET }) => {
+const Data = ({ item, ET, nextHour }) => {
   return item.map(({ Location, Point, Job, StartTime, EndTime }) => {
     const [show, setShow] = useState(true)
 
@@ -24,8 +24,14 @@ const Data = ({ item, ET }) => {
       setShow(false)
     }
 
+    const subtractHours = (date, hours) => {
+      const Newdate = new Date(date);
+      Newdate.setHours(Newdate.getHours() - hours);
+      return Newdate;
+    }
+
     const ETStringCompare = Date.parse(`01/01/2011 ${ET}`)
-    const ParsedStartTime = Date.parse(`01/01/2011 ${StartTime}`)
+    const ParsedStartTime = nextHour ? subtractHours(Date.parse(`01/01/2011 ${StartTime}`),1)  : Date.parse(`01/01/2011 ${StartTime}`)
     const ParsedEndTime = Date.parse(`01/01/2011 ${EndTime}`)
     const compareByTime =
       ParsedStartTime < ETStringCompare && ParsedEndTime > ETStringCompare
@@ -61,6 +67,8 @@ const Data = ({ item, ET }) => {
 
 const Home = () => {
   const [ET, setET] = useState(null)
+  const [NextHour, setNextHour] = useState(false)
+  const HandleNextHour = () => setNextHour(!NextHour)
   useEffect(() => {
     setTimeout(() => {
       setET(new EorzeaTime().toString())
@@ -71,6 +79,7 @@ const Home = () => {
       {ET ? (
         <Fragment>
           <p className={styles.ETspan}>Eorzea Time: {ET.slice(0, -3)}</p>
+          <div className={styles.checkbox}><input type="checkbox" checked={NextHour} onChange={HandleNextHour} name="checkbox" id="checkbox"/><label htmlFor="checkbox">Show next hour nodes</label></div>
           <table className={styles.tableBorder}>
             <thead>
               <tr>
@@ -82,7 +91,7 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              <Data item={data} ET={ET} />
+              <Data item={data} ET={ET} nextHour={NextHour} />
             </tbody>
           </table>
         </Fragment>
